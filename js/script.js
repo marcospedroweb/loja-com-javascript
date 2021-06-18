@@ -95,7 +95,6 @@ window.onload = function () {
             botaoRecentes.classList.remove('d-none');
             botoes.forEach(function (btn) {
                 btn.disabled = false;
-                btn.classList.remove('d-none');
             });
         }
     }
@@ -216,9 +215,9 @@ window.onload = function () {
         let buttonInner = document.createElement('button'); //cria o botao comprar
         //Cria a coluna de botão comprar
         if (modoAdmin.checked) {
-
             buttonInner.textContent = 'Comprar'; //Adiciona o texto
-            buttonInner.classList.add('btn', 'btn-primary', 'comprar', 'd-none');//coloca classe
+            buttonInner.classList.add('btn', 'btn-primary', 'comprar');//coloca classe
+            buttonInner.disabled = true;
         }
 
 
