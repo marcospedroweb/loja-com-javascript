@@ -95,6 +95,7 @@ window.onload = function () {
             botaoRecentes.classList.remove('d-none');
             botoes.forEach(function (btn) {
                 btn.disabled = false;
+                btn.classList.remove('d-none');
             });
         }
     }
