@@ -176,13 +176,12 @@ window.onload = function () {
                         );
                     }
                     produtos[index].unidades--;
-                    adicionarRecentes(produtos[index].nome, carteiraDinheiro, produtos[index].valor);
+                    adicionarRecentes(produtos[index].nome, carteiraDinheiro, produtos[index].valor); //Produtos recentes
                     atualizarTabela(produtos[index].valor);//Argumento: valor do produto
                 }
             });
         });
     }
-
     //Função para atualizar a tabela com o novo produto
     function adicionarDadosTabela(index) {
         //Cria e adiciona todos os dados em uma nova linha na tabela
@@ -237,10 +236,9 @@ window.onload = function () {
             botoes = document.querySelectorAll('.comprar'); // Atualiza o botões de compra
             adicionarProduto = document.querySelector('#adicionar-produto'); // Atualiza as classe com colunas do nome dos produtos
             //html dos dados
-            produtosNomes = document.querySelectorAll('.produto-nome'); // Atualiza o
-            produtosUnidades = document.querySelectorAll('.produto-unidades');// Atualiza o
-            produtosPreco = document.querySelectorAll('.produto-preco');// Atualiza o
-            botoesComprar();//Atualiza os botões de compra e "adiciona" evento no novo botão de comprar
+            produtosNomes = document.querySelectorAll('.produto-nome'); // Atualiza os html de nome dos produtos
+            produtosUnidades = document.querySelectorAll('.produto-unidades');// Atualiza os html das unidades
+            produtosPreco = document.querySelectorAll('.produto-preco');// Atualiza os html dos preços
         };
     }
 
