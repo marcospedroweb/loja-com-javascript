@@ -41,7 +41,7 @@ window.onload = function () {
     let produtosNomes = document.querySelectorAll('.produto-nome');
     let produtosUnidades = document.querySelectorAll('.produto-unidades');
     let produtosPreco = document.querySelectorAll('.produto-preco');
-    botoesComprar();//Adiciona ou re-adiciona o evento nos botões
+
 
     //Erro e sucesso na compra div
     let divErro = document.querySelector('.alert-danger');
@@ -101,7 +101,6 @@ window.onload = function () {
 
     //Evento de botão adicionar produto
     adicionarProduto.addEventListener('click', function () {
-
         if (produtos[3] == undefined) {
             produtos.push({
                 nome: adicionarNome(), //chama função para verificar e adivicionar valor
@@ -141,47 +140,85 @@ window.onload = function () {
         }
     });
 
-    //Função para adicionar/atualizar evento nos botões comprar 
-    function botoesComprar() {
-        //Evento dos botões de comprar
-        botoes.forEach(function (btn, index) {
-            btn.addEventListener('click', function () {
-                if (produtos[index].unidades == 0 || carteiraDinheiro == 0) {
-                    //Verifica se o usuario tem "dinheiro" virtual disponivel ou se há estoque de tal produto
-                    //Div de situação da compra
-                    if (divSuccess.classList.contains('d-block'))//remove msg de sucesso
-                        divSuccess.classList.replace('d-block', 'd-none');
-                    if (divErro.classList.contains('d-none'))//adiciona msg de erro
-                        divErro.classList.replace('d-none', 'd-block');
 
-                    //Tipo de erro da compra
-                    (produtos[index].unidades == 0) ? (
-                        compraErro.textContent = `ERRO na compra! Não há mais estoque de "${produtos[index].nome}"`
-                    ) : (
-                        compraErro.textContent = `ERRO na compra! Você não tem saldo o suficiente para realizar a compra. Seu saldo: R$ ${carteiraDinheiro}`
+    //Evento dos botões de comprar
+    botoes.forEach(function (btn, index) {
+        btn.addEventListener('click', function () {
+            if (produtos[index].unidades == 0 || carteiraDinheiro == 0) {
+                //Verifica se o usuario tem "dinheiro" virtual disponivel ou se há estoque de tal produto
+                //Div de situação da compra
+                if (divSuccess.classList.contains('d-block'))//remove msg de sucesso
+                    divSuccess.classList.replace('d-block', 'd-none');
+                if (divErro.classList.contains('d-none'))//adiciona msg de erro
+                    divErro.classList.replace('d-none', 'd-block');
+
+                //Tipo de erro da compra
+                (produtos[index].unidades == 0) ? (
+                    compraErro.textContent = `ERRO na compra! Não há mais estoque de "${produtos[index].nome}"`
+                ) : (
+                    compraErro.textContent = `ERRO na compra! Você não tem saldo o suficiente para realizar a compra. Seu saldo: R$ ${carteiraDinheiro}`
+                );
+
+            }
+            else {
+                if (divErro.classList.contains('d-block'))//remove msg de erro
+                    divErro.classList.replace('d-block', 'd-none');
+
+                if (divSuccess.classList.contains('d-none')) {//adiciona e remove msg de sucesso na compra
+                    compraSuccess.textContent = `Compra realizada com sucesso!`;
+                    divSuccess.classList.replace('d-none', 'd-block');
+                    setTimeout(
+                        function () {
+                            divSuccess.classList.replace('d-block', 'd-none');
+                        }, 2000
                     );
-
                 }
-                else {
-                    if (divErro.classList.contains('d-block'))//remove msg de erro
-                        divErro.classList.replace('d-block', 'd-none');
+                produtos[index].unidades--;
+                adicionarRecentes(produtos[index].nome, carteiraDinheiro, produtos[index].valor); //Produtos recentes
+                atualizarTabela(produtos[index].valor);//Argumento: valor do produto
+            }
+        });
+    });
 
-                    if (divSuccess.classList.contains('d-none')) {//adiciona e remove msg de sucesso na compra
-                        compraSuccess.textContent = `Compra realizada com sucesso!`;
-                        divSuccess.classList.replace('d-none', 'd-block');
-                        setTimeout(
-                            function () {
-                                divSuccess.classList.replace('d-block', 'd-none');
-                            }, 2000
-                        );
-                    }
-                    produtos[index].unidades--;
-                    adicionarRecentes(produtos[index].nome, carteiraDinheiro, produtos[index].valor); //Produtos recentes
-                    atualizarTabela(produtos[index].valor);//Argumento: valor do produto
+    //Atualiza Evento dos novos botões de comprar
+    function botoesComprar(index) {
+        botoes[index].addEventListener('click', function () {
+            if (produtos[index].unidades == 0 || carteiraDinheiro == 0) {
+                //Verifica se o usuario tem "dinheiro" virtual disponivel ou se há estoque de tal produto
+                //Div de situação da compra
+                if (divSuccess.classList.contains('d-block'))//remove msg de sucesso
+                    divSuccess.classList.replace('d-block', 'd-none');
+                if (divErro.classList.contains('d-none'))//adiciona msg de erro
+                    divErro.classList.replace('d-none', 'd-block');
+
+                //Tipo de erro da compra
+                (produtos[index].unidades == 0) ? (
+                    compraErro.textContent = `ERRO na compra! Não há mais estoque de "${produtos[index].nome}"`
+                ) : (
+                    compraErro.textContent = `ERRO na compra! Você não tem saldo o suficiente para realizar a compra. Seu saldo: R$ ${carteiraDinheiro}`
+                );
+
+            }
+            else {
+                if (divErro.classList.contains('d-block'))//remove msg de erro
+                    divErro.classList.replace('d-block', 'd-none');
+
+                if (divSuccess.classList.contains('d-none')) {//adiciona e remove msg de sucesso na compra
+                    compraSuccess.textContent = `Compra realizada com sucesso!`;
+                    divSuccess.classList.replace('d-none', 'd-block');
+                    setTimeout(
+                        function () {
+                            divSuccess.classList.replace('d-block', 'd-none');
+                        }, 2000
+                    );
                 }
-            });
+                produtos[index].unidades--;
+                adicionarRecentes(produtos[index].nome, carteiraDinheiro, produtos[index].valor); //Produtos recentes
+                atualizarTabela(produtos[index].valor);//Argumento: valor do produto
+            }
         });
     }
+
     //Função para atualizar a tabela com o novo produto
     function adicionarDadosTabela(index) {
         //Cria e adiciona todos os dados em uma nova linha na tabela
@@ -221,7 +258,6 @@ window.onload = function () {
 
 
         tdButton.appendChild(buttonInner);//adiciona o botão ao td
-
         linha.appendChild(thProduto);//A linha recebe coluna com n° do novo produto
         linha.appendChild(tdNome);//A linha recebe coluna com nome do novo produto
         linha.appendChild(tdEstoque);//A linha recebe coluna com quantidade de estoque do novo produto
@@ -239,6 +275,7 @@ window.onload = function () {
             produtosNomes = document.querySelectorAll('.produto-nome'); // Atualiza os html de nome dos produtos
             produtosUnidades = document.querySelectorAll('.produto-unidades');// Atualiza os html das unidades
             produtosPreco = document.querySelectorAll('.produto-preco');// Atualiza os html dos preços
+            botoesComprar(index);// atualiza os eventos dos novos botões
         };
     }
 
