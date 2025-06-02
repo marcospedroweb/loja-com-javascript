@@ -2,22 +2,24 @@
 
 ## 📘 Descrição
 
-Projeto pessoal de uma loja fictícia onde é possível comprar ou adicionar produtos.  
-Este projeto foi desenvolvido com o objetivo de praticar JavaScript, incluindo funcionalidades de CRUD (criar, ler, atualizar e excluir produtos).
+Projeto pessoal de uma loja online fictícia, desenvolvida para praticar lógica de programação, CRUD em JavaScript e manipulação de dados no front-end. O projeto permite alternar entre o modo de cliente e administrador, oferecendo uma experiência dinâmica para ambos os perfis.
 
 ## ✨ Funcionalidades
 
-- Cadastro de produtos (CRUD em JavaScript)
-- Adição de produtos ao carrinho de compras
-- Visualização de produtos disponíveis
-- Responsividade com Bootstrap
+- **Cliente:**
+  - Visualizar produtos disponíveis
+  - Comprar produtos utilizando saldo fictício
+  - Visualizar histórico de compras recentes
+
+- **Administrador:**
+  - Adicionar novos produtos à loja
 
 ## 🛠️ Tecnologias Utilizadas
 
-- HTML5  
-- CSS3  
-- JavaScript  
-- Bootstrap  
+- HTML5
+- CSS3
+- JavaScript
+- Bootstrap
 
 ## 🚀 Como Acessar
 
